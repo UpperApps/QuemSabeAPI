@@ -9,19 +9,20 @@
 	<packaging>jar</packaging>
 
 	<name>QuemSabeAPI</name>
-	<description>Projeto da API da aplica��o QuemSabe</description>
+	<description>Projeto da API da aplicação QuemSabe</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>1.4.3.RELEASE</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
+		<neo4j-ogm-test.version>2.1.1</neo4j-ogm-test.version>
 	</properties>
 
 	<dependencies>
@@ -42,6 +43,18 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-neo4j</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.neo4j</groupId>
+			<artifactId>neo4j-ogm-test</artifactId>
+			<version>${neo4j-ogm-test.version}</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
