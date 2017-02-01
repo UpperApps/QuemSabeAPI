@@ -18,8 +18,16 @@ public class QuemSabeAPINeo4JConfiguration extends Neo4jConfiguration{
 
     @Bean
     public org.neo4j.ogm.config.Configuration getConfiguration() {
+    	
+    	final String username = "neo4j";
+    	final String password = "fab014";
+    	
         org.neo4j.ogm.config.Configuration config = new org.neo4j.ogm.config.Configuration();
-        config.driverConfiguration().setDriverClassName("org.neo4j.ogm.drivers.http.driver.HttpDriver").setURI(URL);
+        
+        config.driverConfiguration()
+        	.setDriverClassName("org.neo4j.ogm.drivers.http.driver.HttpDriver")
+        	.setURI(URL)
+        	.setCredentials(username, password);
         return config;
     }
 	
