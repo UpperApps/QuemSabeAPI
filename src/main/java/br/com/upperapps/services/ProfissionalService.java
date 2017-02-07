@@ -1,4 +1,4 @@
-package br.com.upperapps.service;
+package br.com.upperapps.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 
 import br.com.upperapps.domain.Profissional;
 import br.com.upperapps.repository.ProfissionalRepository;
+import br.com.upperapps.services.exceptions.ProfissionalExistenteException;
+import br.com.upperapps.services.exceptions.ProfissionalNaoEncontradoException;
 
 @Service
 public class ProfissionalService {
@@ -14,7 +16,7 @@ public class ProfissionalService {
 	private ProfissionalRepository profissionalRepository;
 
 	public ProfissionalService() {
-		// TODO Auto-generated constructor stub
+
 	}
 
 	public Iterable<Profissional> listar() {
@@ -24,41 +26,40 @@ public class ProfissionalService {
 	public Profissional salvar(Profissional profissional) {
 
 		if (profissional.getId() != null) {
-			Profissional prof = profissionalRepository.findOne(profissional.getId());
+			profissionalRepository.findOne(profissional.getId());
 
-			if (prof != null) {
-				
-			//TODO Fazer a implementação de uma classe de exceção customizada.
-				throw new RuntimeException("O profissional já existe.");
+			if (profissional != null) {
+
+				throw new ProfissionalExistenteException("O profissional já existe.");
 			}
 		}
 
 		return profissionalRepository.save(profissional);
+
 	}
-	
+
 	public void atualizar(Profissional profissional) {
 		verificarExistencia(profissional);
 		profissionalRepository.save(profissional);
 	}
 
-
 	public Profissional buscar(Long id) {
 		Profissional profissional = profissionalRepository.findOne(id);
-		
+
 		if (profissional == null) {
-			throw new RuntimeException("Profissional não encontrado");
+			throw new ProfissionalNaoEncontradoException("Profissional não encontrado");
 		}
 		return profissional;
 	}
 
 	public void deletar(Long id) {
-		
+
 		try {
 			profissionalRepository.delete(id);
 		} catch (EmptyResultDataAccessException e) {
-			throw new RuntimeException("O profissional não pôde ser encontrado.");
+			throw new ProfissionalNaoEncontradoException("O profissional não pôde ser encontrado.");
 		}
-		
+
 	}
 
 	private void verificarExistencia(Profissional profissional) {
