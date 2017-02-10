@@ -17,7 +17,7 @@ public class PossuiConhecimento {
 	private Profissional profissional;
 	
 	@EndNode
-	private Assunto conhecimento;
+	private Conhecimento conhecimento;
 	
 	private Date conheceDesde;
 	
@@ -35,11 +35,11 @@ public class PossuiConhecimento {
 		this.profissional = profissional;
 	}
 
-	public Assunto getConhecimento() {
+	public Conhecimento getConhecimento() {
 		return conhecimento;
 	}
 
-	public void setConhecimento(Assunto conhecimento) {
+	public void setConhecimento(Conhecimento conhecimento) {
 		this.conhecimento = conhecimento;
 	}
 

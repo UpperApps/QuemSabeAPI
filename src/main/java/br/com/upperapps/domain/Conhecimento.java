@@ -6,10 +6,11 @@ import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.neo4j.ogm.annotation.GraphId;
 import org.neo4j.ogm.annotation.NodeEntity;
+import org.neo4j.ogm.annotation.Relationship;
 
 @NodeEntity
-public class Categoria {
-
+public class Conhecimento {
+	
 	@GraphId
 	private Long id;
 	
@@ -21,7 +22,11 @@ public class Categoria {
 	@Size(max=300, message="A descrição deve conter no máximo 300 caracteres")
 	private String descricao;
 	
-	public Categoria() {
+	@NotNull(message="A categoria não pode ser nula.")
+	@Relationship(type = "PERTENCE_A_CATEGORIA", direction = "OUTGOING")
+	private Categoria categoria;
+	
+	public Conhecimento(){
 		
 	}
 
@@ -47,6 +52,14 @@ public class Categoria {
 
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
+	}
+
+	public Categoria getCategoria() {
+		return categoria;
+	}
+
+	public void setCategoria(Categoria categoria) {
+		this.categoria = categoria;
 	}
 	
 }
