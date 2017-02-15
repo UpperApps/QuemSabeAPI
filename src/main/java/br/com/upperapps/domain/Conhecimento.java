@@ -8,7 +8,11 @@ import org.neo4j.ogm.annotation.GraphId;
 import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Relationship;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.voodoodyne.jackson.jsog.JSOGGenerator;
+
 @NodeEntity
+@JsonIdentityInfo(generator = JSOGGenerator.class)
 public class Conhecimento {
 	
 	@GraphId

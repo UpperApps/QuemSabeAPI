@@ -57,7 +57,7 @@ public class CategoriaService {
 		try {
 			categoriaRepository.delete(id);
 		} catch (EmptyResultDataAccessException e) {
-			throw new CategoriaNaoEncontradaException("O categoria não pôde ser encontrado.");
+			throw new CategoriaNaoEncontradaException("A categoria não pôde ser encontrada.");
 		}
 
 	}

@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 
 import br.com.upperapps.domain.Profissional;
 import br.com.upperapps.repository.ProfissionalRepository;
-import br.com.upperapps.services.exceptions.CategoriaExistenteException;
+import br.com.upperapps.services.exceptions.ProfissionalExistenteException;
 import br.com.upperapps.services.exceptions.ProfissionalNaoEncontradoException;
 
 @Service
@@ -30,7 +30,7 @@ public class ProfissionalService {
 
 			if (profissional != null) {
 
-				throw new CategoriaExistenteException("O profissional já existe.");
+				throw new ProfissionalExistenteException("O profissional já existe.");
 			}
 		}
 

@@ -31,7 +31,7 @@ public class ResourceExceptionHandler {
 		// Carrega as informações que serão exibidas na mensagem de erro do console.
 		DetalhesErro erro = new DetalhesErro();
 		erro.setSatus(409l);
-		erro.setTitulo("Profissional já existente.");
+		erro.setTitulo(e.getMessage());
 		erro.setMensagemDesenvolvedor("http://erros.quemsabeapi.com/409");
 		erro.setTimestamp(System.currentTimeMillis());
 		
@@ -45,7 +45,7 @@ public class ResourceExceptionHandler {
 		// Carrega as informações que serão exibidas na mensagem de erro do console.
 		DetalhesErro erro = new DetalhesErro();
 		erro.setSatus(404l);
-		erro.setTitulo("O profissional não pôde ser encontrado.");
+		erro.setTitulo(e.getMessage());
 		erro.setMensagemDesenvolvedor("http://erros.quemsabeapi.com/404");
 		erro.setTimestamp(System.currentTimeMillis());
 		
@@ -59,7 +59,7 @@ public class ResourceExceptionHandler {
 		// Carrega as informações que serão exibidas na mensagem de erro do console.
 		DetalhesErro erro = new DetalhesErro();
 		erro.setSatus(409l);
-		erro.setTitulo("Categoria já existente.");
+		erro.setTitulo(e.getMessage());
 		erro.setMensagemDesenvolvedor("http://erros.quemsabeapi.com/409");
 		erro.setTimestamp(System.currentTimeMillis());
 		
@@ -67,13 +67,13 @@ public class ResourceExceptionHandler {
 	}
 	
 	@ExceptionHandler(CategoriaNaoEncontradaException.class)
-	public ResponseEntity<DetalhesErro> handleCategorialNaoEncontradoException(CategoriaNaoEncontradaException e,
+	public ResponseEntity<DetalhesErro> handleCategoriaNaoEncontradaException(CategoriaNaoEncontradaException e,
 			HttpServletRequest request) {
 		
 		// Carrega as informações que serão exibidas na mensagem de erro do console.
 		DetalhesErro erro = new DetalhesErro();
 		erro.setSatus(404l);
-		erro.setTitulo("A categoria não pôde ser encontrada.");
+		erro.setTitulo(e.getMessage());
 		erro.setMensagemDesenvolvedor("http://erros.quemsabeapi.com/404");
 		erro.setTimestamp(System.currentTimeMillis());
 		
@@ -81,13 +81,13 @@ public class ResourceExceptionHandler {
 	}
 	
 	@ExceptionHandler(ConhecimentoExistenteException.class)
-	public ResponseEntity<DetalhesErro> handleConhecimentoExistenteException(CategoriaExistenteException e,
+	public ResponseEntity<DetalhesErro> handleConhecimentoExistenteException(ConhecimentoExistenteException e,
 			HttpServletRequest request) {
 		
 		// Carrega as informações que serão exibidas na mensagem de erro do console.
 		DetalhesErro erro = new DetalhesErro();
 		erro.setSatus(409l);
-		erro.setTitulo("Conhecimento já existente.");
+		erro.setTitulo(e.getMessage());
 		erro.setMensagemDesenvolvedor("http://erros.quemsabeapi.com/409");
 		erro.setTimestamp(System.currentTimeMillis());
 		
@@ -95,13 +95,13 @@ public class ResourceExceptionHandler {
 	}
 	
 	@ExceptionHandler(ConhecimentoNaoEncontradoException.class)
-	public ResponseEntity<DetalhesErro> handleConhecimentoNaoEncontradoException(CategoriaNaoEncontradaException e,
+	public ResponseEntity<DetalhesErro> handleConhecimentoNaoEncontradoException(ConhecimentoNaoEncontradoException e,
 			HttpServletRequest request) {
 		
 		// Carrega as informações que serão exibidas na mensagem de erro do console.
 		DetalhesErro erro = new DetalhesErro();
 		erro.setSatus(404l);
-		erro.setTitulo("O conhecimento não pôde ser encontrado.");
+		erro.setTitulo(e.getMessage());
 		erro.setMensagemDesenvolvedor("http://erros.quemsabeapi.com/404");
 		erro.setTimestamp(System.currentTimeMillis());
 		

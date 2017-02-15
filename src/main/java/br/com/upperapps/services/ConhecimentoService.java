@@ -1,11 +1,13 @@
 package br.com.upperapps.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
+import br.com.upperapps.domain.Categoria;
 import br.com.upperapps.domain.Conhecimento;
+import br.com.upperapps.repository.CategoriaRepository;
 import br.com.upperapps.repository.ConhecimentoRepository;
+import br.com.upperapps.services.exceptions.CategoriaNaoEncontradaException;
 import br.com.upperapps.services.exceptions.ConhecimentoExistenteException;
 import br.com.upperapps.services.exceptions.ConhecimentoNaoEncontradoException;
 
@@ -14,16 +16,23 @@ public class ConhecimentoService {
 
 	@Autowired
 	private ConhecimentoRepository conhecimentoRepository;
-	
-	public ConhecimentoService(){
-		
+
+	@Autowired
+	private CategoriaRepository categoriaRepository;
+
+	public ConhecimentoService() {
+
 	}
-	
+
 	public Iterable<Conhecimento> listar() {
 		return conhecimentoRepository.findAll();
 	}
 
 	public Conhecimento salvar(Conhecimento conhecimento) {
+
+		Long idCategoria = conhecimento.getCategoria().getId();
+
+		verificarExistenciaCategoria(idCategoria);
 
 		if (conhecimento.getId() != null) {
 			conhecimentoRepository.findOne(conhecimento.getId());
@@ -47,7 +56,7 @@ public class ConhecimentoService {
 		Conhecimento conhecimento = conhecimentoRepository.findOne(id);
 
 		if (conhecimento == null) {
-			throw new ConhecimentoNaoEncontradoException("Conhecimento não encontrada");
+			throw new ConhecimentoNaoEncontradoException("Conhecimento não encontrado.");
 		}
 		return conhecimento;
 	}
@@ -56,13 +65,23 @@ public class ConhecimentoService {
 
 		try {
 			conhecimentoRepository.delete(id);
-		} catch (EmptyResultDataAccessException e) {
-			throw new ConhecimentoNaoEncontradoException("O conhecimento não pôde ser encontrado.");
+		} catch (Exception e) {
+			throw new ConhecimentoNaoEncontradoException("O conhecimento não pôde ser encontrado." + e);
 		}
 
 	}
 
 	private void verificarExistencia(Conhecimento conhecimento) {
 		buscar(conhecimento.getId());
+	}
+
+	private void verificarExistenciaCategoria(Long id) {
+
+		Categoria categoria = categoriaRepository.findOne(id);
+		
+		if (categoria == null) {
+			throw new CategoriaNaoEncontradaException("A categoria informada não existe.");
+		}
+
 	}
 }
