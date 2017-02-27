@@ -18,39 +18,38 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import br.com.upperapps.domain.Conhecimento;
 import br.com.upperapps.services.ConhecimentoService;
 
-
 @RestController
-@RequestMapping("conhecimento/")
+@RequestMapping("conhece/")
 public class ConhecimentoResource {
-	
+
 	@Autowired
 	private ConhecimentoService conhecimentoService;
-	
-	@RequestMapping(method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
-	public ResponseEntity<Iterable<Conhecimento>> listar(){
-		
+
+	@RequestMapping(method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE })
+	public ResponseEntity<Iterable<Conhecimento>> listar() {
+
 		Iterable<Conhecimento> conhecimento = conhecimentoService.listar();
-		
+
 		return ResponseEntity.status(HttpStatus.OK).body(conhecimento);
 	}
-	
-	@RequestMapping(value = ("/{id}"), method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
-	public ResponseEntity<Conhecimento> buscar(@PathVariable("id") Long id){
+
+	@RequestMapping(value = ("/{id}"), method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE })
+	public ResponseEntity<Conhecimento> buscar(@PathVariable("id") Long id) {
 		Conhecimento conhecimento = conhecimentoService.buscar(id);
 		return ResponseEntity.status(HttpStatus.OK).body(conhecimento);
 	}
-	
-	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<Void> salvar(@Valid @RequestBody Conhecimento conhecimento){
-		
+
+	@RequestMapping(method = RequestMethod.POST, consumes = { MediaType.APPLICATION_JSON_VALUE })
+	public ResponseEntity<Void> salvar(@Valid @RequestBody Conhecimento conhecimento) {
+
 		conhecimento = conhecimentoService.salvar(conhecimento);
-		
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
-				.path("/{id}").buildAndExpand(conhecimento.getId()).toUri();
-		
+
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(conhecimento.getId())
+				.toUri();
+
 		return ResponseEntity.created(uri).build();
 	}
-	
+
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
 	public ResponseEntity<Void> atualizar(@RequestBody Conhecimento conhecimento, @PathVariable("id") Long id) {
 		conhecimento.setId(id);
@@ -58,7 +57,7 @@ public class ConhecimentoResource {
 
 		return ResponseEntity.noContent().build();
 	}
-	
+
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<Void> deletar(@PathVariable("id") Long id) {
 

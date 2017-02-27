@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import br.com.upperapps.domain.DetalhesErro;
 import br.com.upperapps.services.exceptions.CategoriaExistenteException;
 import br.com.upperapps.services.exceptions.CategoriaNaoEncontradaException;
-import br.com.upperapps.services.exceptions.ConhecimentoExistenteException;
-import br.com.upperapps.services.exceptions.ConhecimentoNaoEncontradoException;
+import br.com.upperapps.services.exceptions.AssuntoExistenteException;
+import br.com.upperapps.services.exceptions.AssuntoNaoEncontradoException;
 import br.com.upperapps.services.exceptions.ProfissionalExistenteException;
 import br.com.upperapps.services.exceptions.ProfissionalNaoEncontradoException;
 
@@ -80,8 +80,8 @@ public class ResourceExceptionHandler {
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(erro);
 	}
 	
-	@ExceptionHandler(ConhecimentoExistenteException.class)
-	public ResponseEntity<DetalhesErro> handleConhecimentoExistenteException(ConhecimentoExistenteException e,
+	@ExceptionHandler(AssuntoExistenteException.class)
+	public ResponseEntity<DetalhesErro> handleAssuntoExistenteException(AssuntoExistenteException e,
 			HttpServletRequest request) {
 		
 		// Carrega as informações que serão exibidas na mensagem de erro do console.
@@ -94,8 +94,8 @@ public class ResourceExceptionHandler {
 		return ResponseEntity.status(HttpStatus.CONFLICT).body(erro);
 	}
 	
-	@ExceptionHandler(ConhecimentoNaoEncontradoException.class)
-	public ResponseEntity<DetalhesErro> handleConhecimentoNaoEncontradoException(ConhecimentoNaoEncontradoException e,
+	@ExceptionHandler(AssuntoNaoEncontradoException.class)
+	public ResponseEntity<DetalhesErro> handleAssuntoNaoEncontradoException(AssuntoNaoEncontradoException e,
 			HttpServletRequest request) {
 		
 		// Carrega as informações que serão exibidas na mensagem de erro do console.

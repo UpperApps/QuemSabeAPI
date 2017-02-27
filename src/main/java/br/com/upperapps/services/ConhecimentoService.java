@@ -1,13 +1,11 @@
 package br.com.upperapps.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
-import br.com.upperapps.domain.Categoria;
 import br.com.upperapps.domain.Conhecimento;
-import br.com.upperapps.repository.CategoriaRepository;
 import br.com.upperapps.repository.ConhecimentoRepository;
-import br.com.upperapps.services.exceptions.CategoriaNaoEncontradaException;
 import br.com.upperapps.services.exceptions.ConhecimentoExistenteException;
 import br.com.upperapps.services.exceptions.ConhecimentoNaoEncontradoException;
 
@@ -15,48 +13,43 @@ import br.com.upperapps.services.exceptions.ConhecimentoNaoEncontradoException;
 public class ConhecimentoService {
 
 	@Autowired
-	private ConhecimentoRepository conhecimentoRepository;
-
-	@Autowired
-	private CategoriaRepository categoriaRepository;
+	private ConhecimentoRepository possuiConhecimentolRepository;
 
 	public ConhecimentoService() {
 
 	}
 
 	public Iterable<Conhecimento> listar() {
-		return conhecimentoRepository.findAll();
+
+		return possuiConhecimentolRepository.findAll();
+		
 	}
 
 	public Conhecimento salvar(Conhecimento conhecimento) {
 
-		Long idCategoria = conhecimento.getCategoria().getId();
-
-		verificarExistenciaCategoria(idCategoria);
-
 		if (conhecimento.getId() != null) {
-			conhecimentoRepository.findOne(conhecimento.getId());
+			possuiConhecimentolRepository.findOne(conhecimento.getId());
 
 			if (conhecimento != null) {
 
-				throw new ConhecimentoExistenteException("O conhecimento já existe.");
+				throw new ConhecimentoExistenteException("O possuiConhecimento já existe.");
 			}
 		}
 
-		return conhecimentoRepository.save(conhecimento);
+		return possuiConhecimentolRepository.save(conhecimento);
 
 	}
 
 	public void atualizar(Conhecimento conhecimento) {
 		verificarExistencia(conhecimento);
-		conhecimentoRepository.save(conhecimento);
+		possuiConhecimentolRepository.save(conhecimento);
 	}
 
 	public Conhecimento buscar(Long id) {
-		Conhecimento conhecimento = conhecimentoRepository.findOne(id);
+		Conhecimento conhecimento = possuiConhecimentolRepository.findOne(id);
 
 		if (conhecimento == null) {
-			throw new ConhecimentoNaoEncontradoException("Conhecimento não encontrado.");
+			throw new ConhecimentoNaoEncontradoException("Conhecimento não encontrado para o profissional");
 		}
 		return conhecimento;
 	}
@@ -64,24 +57,15 @@ public class ConhecimentoService {
 	public void deletar(Long id) {
 
 		try {
-			conhecimentoRepository.delete(id);
-		} catch (Exception e) {
-			throw new ConhecimentoNaoEncontradoException("O conhecimento não pôde ser encontrado." + e);
+			possuiConhecimentolRepository.delete(id);
+		} catch (EmptyResultDataAccessException e) {
+			throw new ConhecimentoNaoEncontradoException(
+					"O conhecimento do profisisonal não pôde ser encontrado.");
 		}
 
 	}
 
 	private void verificarExistencia(Conhecimento conhecimento) {
 		buscar(conhecimento.getId());
-	}
-
-	private void verificarExistenciaCategoria(Long id) {
-
-		Categoria categoria = categoriaRepository.findOne(id);
-		
-		if (categoria == null) {
-			throw new CategoriaNaoEncontradaException("A categoria informada não existe.");
-		}
-
 	}
 }

@@ -1,45 +1,38 @@
 package br.com.upperapps.domain;
 
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import java.util.Date;
 
-import org.hibernate.validator.constraints.NotEmpty;
-import org.neo4j.ogm.annotation.GraphId;
-import org.neo4j.ogm.annotation.NodeEntity;
-import org.neo4j.ogm.annotation.Relationship;
+import org.neo4j.ogm.annotation.EndNode;
+import org.neo4j.ogm.annotation.RelationshipEntity;
+import org.neo4j.ogm.annotation.StartNode;
+import org.neo4j.ogm.annotation.typeconversion.DateString;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.voodoodyne.jackson.jsog.JSOGGenerator;
 
-@NodeEntity
 @JsonIdentityInfo(generator = JSOGGenerator.class)
+@RelationshipEntity(type="CONHECE_UM")
 public class Conhecimento {
 	
-	@GraphId
 	private Long id;
 	
-	@NotEmpty(message="O nome não pode estar vazio.")
-	@NotNull(message="O nome não pode ser nulo.")
-	@Size(max=50, message="O nome deve conter no máximo 50 caracteres")
-	private String nome;
+	@StartNode
+	private Profissional profissional;
 	
-	@Size(max=300, message="A descrição deve conter no máximo 300 caracteres")
-	private String descricao;
+	@EndNode
+	private Assunto assunto;
 	
-	@NotNull(message="A categoria não pode ser nula.")
-	@Relationship(type = "PERTENCE_A_CATEGORIA", direction = "OUTGOING")
-	private Categoria categoria;
+//	@NotNull(message="A data não pode ser nula.")
+//	@NotEmpty(message="A data não pode ser vazia.")
+	@DateString("dd/MM/yyyy")
+	private Date conheceDesde;
 	
-	public Conhecimento(){
+//	@NotNull(message="O nível de conhecimento não pode ser nulo.")
+//	@NotEmpty(message="O nível de conhecimento não pode estar vazio.")
+//	private NivelConhecimento nivelConhecimento;
+	
+	public Conhecimento() {
 		
-	}
-
-	public String getNome() {
-		return nome;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
 	}
 
 	public Long getId() {
@@ -50,20 +43,35 @@ public class Conhecimento {
 		this.id = id;
 	}
 
-	public String getDescricao() {
-		return descricao;
+	public Profissional getProfissional() {
+		return profissional;
 	}
 
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
+	public void setProfissional(Profissional profissional) {
+		this.profissional = profissional;
 	}
 
-	public Categoria getCategoria() {
-		return categoria;
+	public Assunto getAssunto() {
+		return assunto;
 	}
 
-	public void setCategoria(Categoria categoria) {
-		this.categoria = categoria;
+	public void setAssunto(Assunto assunto) {
+		this.assunto = assunto;
 	}
-	
+
+	public Date getConheceDesde() {
+		return conheceDesde;
+	}
+
+	public void setConheceDesde(Date conheceDesde) {
+		this.conheceDesde = conheceDesde;
+	}
+
+//	public NivelConhecimento getNivelConhecimento() {
+//		return nivelConhecimento;
+//	}
+//
+//	public void setNivelConhecimento(NivelConhecimento nivelConhecimento) {
+//		this.nivelConhecimento = nivelConhecimento;
+//	}
 }

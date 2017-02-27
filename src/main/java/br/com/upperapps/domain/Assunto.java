@@ -4,13 +4,12 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotEmpty;
-import org.neo4j.ogm.annotation.GraphId;
 import org.neo4j.ogm.annotation.NodeEntity;
+import org.neo4j.ogm.annotation.Relationship;
 
 @NodeEntity
-public class Categoria {
-
-	@GraphId
+public class Assunto {
+	
 	private Long id;
 	
 	@NotEmpty(message="O nome não pode estar vazio.")
@@ -21,7 +20,14 @@ public class Categoria {
 	@Size(max=300, message="A descrição deve conter no máximo 300 caracteres")
 	private String descricao;
 	
-	public Categoria() {
+	@NotNull(message="A categoria não pode ser nula.")
+	@Relationship(type = "PERTENCE_A_CATEGORIA", direction = Relationship.OUTGOING)
+	private Categoria categoria;
+	
+//	@Relationship(type = "CONHECE_UM", direction = Relationship.INCOMING)
+//	private Set<Conhecimento> conhecimento = new HashSet<>();
+	
+	public Assunto(){
 		
 	}
 
@@ -48,5 +54,21 @@ public class Categoria {
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
+
+	public Categoria getCategoria() {
+		return categoria;
+	}
+
+	public void setCategoria(Categoria categoria) {
+		this.categoria = categoria;
+	}
+
+//	public Set<Conhecimento> getConhecimento() {
+//		return conhecimento;
+//	}
+//
+//	public void setConhecimento(Set<Conhecimento> conhecimento) {
+//		this.conhecimento = conhecimento;
+//	}
 	
 }
