@@ -27,8 +27,7 @@ public class Conhecimento {
 	@EndNode
 	private Assunto assunto;
 	
-//	@NotNull(message="A data não pode ser nula.")
-//	@NotEmpty(message="A data não pode ser vazia.")
+	@NotNull(message="A data não pode ser nula.")
 	@DateString("dd/MM/yyyy")
 	private Date conheceDesde;
 	
