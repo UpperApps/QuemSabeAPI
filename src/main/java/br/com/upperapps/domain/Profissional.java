@@ -69,14 +69,4 @@ public class Profissional {
 		this.email = email;
 	}
 
-	//TODO Remover caso não seja mais usaado realmente.
-	
-//	public Set<Conhecimento> getConhecimento() {
-//		return conhecimento;
-//	}
-//
-//	public void setConhecimento(Set<Conhecimento> conhecimento) {
-//		this.conhecimento = conhecimento;
-//	}
-
 }

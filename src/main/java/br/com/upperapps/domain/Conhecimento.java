@@ -2,6 +2,9 @@ package br.com.upperapps.domain;
 
 import java.util.Date;
 
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotEmpty;
 import org.neo4j.ogm.annotation.EndNode;
 import org.neo4j.ogm.annotation.GraphId;
 import org.neo4j.ogm.annotation.RelationshipEntity;
@@ -24,18 +27,16 @@ public class Conhecimento {
 	@EndNode
 	private Assunto assunto;
 	
-	//TODO Reativar as validações depois de resolver o problema dos relacionamentos.
-	
 //	@NotNull(message="A data não pode ser nula.")
 //	@NotEmpty(message="A data não pode ser vazia.")
 	@DateString("dd/MM/yyyy")
 	private Date conheceDesde;
 	
-	//TODO Reativar o ENUM depois de resolver o problema dos relacionamentos.
+	//TODO Reativar o ENUM e as validações depois de resolver o problema dos relacionamentos.
 	
 //	@NotNull(message="O nível de conhecimento não pode ser nulo.")
 //	@NotEmpty(message="O nível de conhecimento não pode estar vazio.")
-//	private NivelConhecimento nivelConhecimento;
+	private NivelConhecimento nivelConhecimento;
 	
 	public Conhecimento() {
 		
@@ -72,14 +73,12 @@ public class Conhecimento {
 	public void setConheceDesde(Date conheceDesde) {
 		this.conheceDesde = conheceDesde;
 	}
-
-	//TODO Reativar o ENUM depois de resolver o problema dos relacionamentos.
 	
-//	public NivelConhecimento getNivelConhecimento() {
-//		return nivelConhecimento;
-//	}
-//
-//	public void setNivelConhecimento(NivelConhecimento nivelConhecimento) {
-//		this.nivelConhecimento = nivelConhecimento;
-//	}
+	public NivelConhecimento getNivelConhecimento() {
+		return nivelConhecimento;
+	}
+
+	public void setNivelConhecimento(NivelConhecimento nivelConhecimento) {
+		this.nivelConhecimento = nivelConhecimento;
+	}
 }
