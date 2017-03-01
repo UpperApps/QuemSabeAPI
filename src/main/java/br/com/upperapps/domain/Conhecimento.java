@@ -3,6 +3,7 @@ package br.com.upperapps.domain;
 import java.util.Date;
 
 import org.neo4j.ogm.annotation.EndNode;
+import org.neo4j.ogm.annotation.GraphId;
 import org.neo4j.ogm.annotation.RelationshipEntity;
 import org.neo4j.ogm.annotation.StartNode;
 import org.neo4j.ogm.annotation.typeconversion.DateString;
@@ -14,6 +15,7 @@ import com.voodoodyne.jackson.jsog.JSOGGenerator;
 @RelationshipEntity(type="CONHECE_UM")
 public class Conhecimento {
 	
+	@GraphId
 	private Long id;
 	
 	@StartNode
@@ -22,10 +24,14 @@ public class Conhecimento {
 	@EndNode
 	private Assunto assunto;
 	
+	//TODO Reativar as validações depois de resolver o problema dos relacionamentos.
+	
 //	@NotNull(message="A data não pode ser nula.")
 //	@NotEmpty(message="A data não pode ser vazia.")
 	@DateString("dd/MM/yyyy")
 	private Date conheceDesde;
+	
+	//TODO Reativar o ENUM depois de resolver o problema dos relacionamentos.
 	
 //	@NotNull(message="O nível de conhecimento não pode ser nulo.")
 //	@NotEmpty(message="O nível de conhecimento não pode estar vazio.")
@@ -67,6 +73,8 @@ public class Conhecimento {
 		this.conheceDesde = conheceDesde;
 	}
 
+	//TODO Reativar o ENUM depois de resolver o problema dos relacionamentos.
+	
 //	public NivelConhecimento getNivelConhecimento() {
 //		return nivelConhecimento;
 //	}

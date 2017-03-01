@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import br.com.upperapps.domain.Conhecimento;
 import br.com.upperapps.domain.Profissional;
 import br.com.upperapps.services.ProfissionalService;
 
@@ -64,5 +65,14 @@ public class ProfissionalResource {
 		profissionalService.deletar(id);
 
 		return ResponseEntity.noContent().build();
+	}
+	
+	@RequestMapping(value = ("/{id}/conhecimentos"), method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
+	public ResponseEntity<Iterable<Conhecimento>> buscarConhecimentosDoProfissional(@PathVariable("id") Long id){
+		
+		Iterable<Conhecimento> conhecimentos = profissionalService.buscarConhecimentosDoProfissiinal(id);
+		
+		return ResponseEntity.status(HttpStatus.OK).body(conhecimentos);
+		
 	}
 }

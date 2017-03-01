@@ -4,7 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
+import br.com.upperapps.domain.Conhecimento;
 import br.com.upperapps.domain.Profissional;
+import br.com.upperapps.repository.ConhecimentoRepository;
 import br.com.upperapps.repository.ProfissionalRepository;
 import br.com.upperapps.services.exceptions.ProfissionalExistenteException;
 import br.com.upperapps.services.exceptions.ProfissionalNaoEncontradoException;
@@ -14,6 +16,9 @@ public class ProfissionalService {
 
 	@Autowired
 	private ProfissionalRepository profissionalRepository;
+	
+	@Autowired
+	private ConhecimentoRepository conhecimentoRepository;
 
 	public ProfissionalService() {
 
@@ -64,5 +69,14 @@ public class ProfissionalService {
 
 	private void verificarExistencia(Profissional profissional) {
 		buscar(profissional.getId());
+	}
+	
+	public Iterable<Conhecimento> buscarConhecimentosDoProfissiinal (Long id){
+		
+		Iterable<Conhecimento> conhecimentos;
+		
+		conhecimentos = conhecimentoRepository.getConhecimentosDoProfissional(id);
+		
+		return conhecimentos;
 	}
 }

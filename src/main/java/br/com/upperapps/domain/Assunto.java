@@ -4,12 +4,14 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotEmpty;
+import org.neo4j.ogm.annotation.GraphId;
 import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Relationship;
 
 @NodeEntity
 public class Assunto {
 	
+	@GraphId
 	private Long id;
 	
 	@NotEmpty(message="O nome não pode estar vazio.")

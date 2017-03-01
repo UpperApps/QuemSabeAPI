@@ -8,12 +8,18 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotEmpty;
+import org.neo4j.ogm.annotation.GraphId;
 import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Relationship;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.voodoodyne.jackson.jsog.JSOGGenerator;
+
+@JsonIdentityInfo(generator = JSOGGenerator.class)
 @NodeEntity
 public class Profissional {
 
+	@GraphId
 	private Long id;
 
 	@NotEmpty(message = "O nome não pode estar vazio.")
@@ -63,12 +69,14 @@ public class Profissional {
 		this.email = email;
 	}
 
-	public Set<Conhecimento> getConhecimento() {
-		return conhecimento;
-	}
-
-	public void setConhecimento(Set<Conhecimento> conhecimento) {
-		this.conhecimento = conhecimento;
-	}
+	//TODO Remover caso não seja mais usaado realmente.
+	
+//	public Set<Conhecimento> getConhecimento() {
+//		return conhecimento;
+//	}
+//
+//	public void setConhecimento(Set<Conhecimento> conhecimento) {
+//		this.conhecimento = conhecimento;
+//	}
 
 }
