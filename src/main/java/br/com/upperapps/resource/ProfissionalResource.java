@@ -75,4 +75,13 @@ public class ProfissionalResource {
 		return ResponseEntity.status(HttpStatus.OK).body(conhecimentos);
 		
 	}
+	
+	@RequestMapping(value = ("/conheceassunto/{id}"), method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
+	public ResponseEntity<Iterable<Conhecimento>> buscarProfissionaisQueConhecemUmAssunto(@PathVariable("id") Long id){
+		
+		Iterable<Conhecimento> conhecimentos = profissionalService.buscarProfissionaisQueConhecemAssunto(id);
+		
+		return ResponseEntity.status(HttpStatus.OK).body(conhecimentos);
+		
+	}
 }

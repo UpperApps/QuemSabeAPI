@@ -26,9 +26,6 @@ public class Assunto {
 	@Relationship(type = "PERTENCE_A_CATEGORIA", direction = Relationship.OUTGOING)
 	private Categoria categoria;
 	
-//	@Relationship(type = "CONHECE_UM", direction = Relationship.INCOMING)
-//	private Set<Conhecimento> conhecimento = new HashSet<>();
-	
 	public Assunto(){
 		
 	}

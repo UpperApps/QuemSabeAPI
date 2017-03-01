@@ -79,4 +79,13 @@ public class ProfissionalService {
 		
 		return conhecimentos;
 	}
+	
+	public Iterable<Conhecimento> buscarProfissionaisQueConhecemAssunto (Long id){
+		
+		Iterable<Conhecimento> conhecimentos;
+		
+		conhecimentos = conhecimentoRepository.getProfissionaisQueConhecemAssunto(id);
+		
+		return conhecimentos;
+	}
 }

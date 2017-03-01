@@ -4,7 +4,6 @@ import java.util.Date;
 
 import javax.validation.constraints.NotNull;
 
-import org.hibernate.validator.constraints.NotEmpty;
 import org.neo4j.ogm.annotation.EndNode;
 import org.neo4j.ogm.annotation.GraphId;
 import org.neo4j.ogm.annotation.RelationshipEntity;
@@ -31,10 +30,7 @@ public class Conhecimento {
 	@DateString("dd/MM/yyyy")
 	private Date conheceDesde;
 	
-	//TODO Reativar o ENUM e as validações depois de resolver o problema dos relacionamentos.
-	
-//	@NotNull(message="O nível de conhecimento não pode ser nulo.")
-//	@NotEmpty(message="O nível de conhecimento não pode estar vazio.")
+	@NotNull(message="O nível de conhecimento não pode ser nulo.")
 	private NivelConhecimento nivelConhecimento;
 	
 	public Conhecimento() {

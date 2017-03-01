@@ -3,13 +3,14 @@ package br.com.upperapps.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.com.upperapps.domain.Categoria;
 import br.com.upperapps.domain.Assunto;
-import br.com.upperapps.repository.CategoriaRepository;
+import br.com.upperapps.domain.Categoria;
 import br.com.upperapps.repository.AssuntoRepository;
-import br.com.upperapps.services.exceptions.CategoriaNaoEncontradaException;
+import br.com.upperapps.repository.CategoriaRepository;
+import br.com.upperapps.repository.ConhecimentoRepository;
 import br.com.upperapps.services.exceptions.AssuntoExistenteException;
 import br.com.upperapps.services.exceptions.AssuntoNaoEncontradoException;
+import br.com.upperapps.services.exceptions.CategoriaNaoEncontradaException;
 
 @Service
 public class AssuntoService {
@@ -84,4 +85,5 @@ public class AssuntoService {
 		}
 
 	}
+
 }
