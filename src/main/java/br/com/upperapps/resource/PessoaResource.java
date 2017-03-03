@@ -16,45 +16,45 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.com.upperapps.domain.Conhecimento;
-import br.com.upperapps.domain.Profissional;
-import br.com.upperapps.services.ProfissionalService;
+import br.com.upperapps.domain.Pessoa;
+import br.com.upperapps.services.PessoaService;
 
 @RestController
-@RequestMapping("profissional/")
-public class ProfissionalResource {
+@RequestMapping("pessoa/")
+public class PessoaResource {
 
 	@Autowired
-	private ProfissionalService profissionalService;
+	private PessoaService pessoaService;
 	
 	@RequestMapping(method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
-	public ResponseEntity<Iterable<Profissional>> listar(){
+	public ResponseEntity<Iterable<Pessoa>> listar(){
 		
-		Iterable<Profissional> profissional = profissionalService.listar();
+		Iterable<Pessoa> pessoa = pessoaService.listar();
 		
-		return ResponseEntity.status(HttpStatus.OK).body(profissional);
+		return ResponseEntity.status(HttpStatus.OK).body(pessoa);
 	}
 	
 	@RequestMapping(value = ("/{id}"), method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
-	public ResponseEntity<Profissional> buscar(@PathVariable("id") Long id){
-		Profissional profissional = profissionalService.buscar(id);
-		return ResponseEntity.status(HttpStatus.OK).body(profissional);
+	public ResponseEntity<Pessoa> buscar(@PathVariable("id") Long id){
+		Pessoa pessoa = pessoaService.buscar(id);
+		return ResponseEntity.status(HttpStatus.OK).body(pessoa);
 	}
 	
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<Void> salvar(@Valid @RequestBody Profissional profissional){
+	public ResponseEntity<Void> salvar(@Valid @RequestBody Pessoa pessoa){
 		
-		profissional = profissionalService.salvar(profissional);
+		pessoa = pessoaService.salvar(pessoa);
 		
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
-				.path("/{id}").buildAndExpand(profissional.getId()).toUri();
+				.path("/{id}").buildAndExpand(pessoa.getId()).toUri();
 		
 		return ResponseEntity.created(uri).build();
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-	public ResponseEntity<Void> atualizar(@RequestBody Profissional profissional, @PathVariable("id") Long id) {
-		profissional.setId(id);
-		profissionalService.atualizar(profissional);
+	public ResponseEntity<Void> atualizar(@RequestBody Pessoa pessoa, @PathVariable("id") Long id) {
+		pessoa.setId(id);
+		pessoaService.atualizar(pessoa);
 
 		return ResponseEntity.noContent().build();
 	}
@@ -62,24 +62,24 @@ public class ProfissionalResource {
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<Void> deletar(@PathVariable("id") Long id) {
 
-		profissionalService.deletar(id);
+		pessoaService.deletar(id);
 
 		return ResponseEntity.noContent().build();
 	}
 	
 	@RequestMapping(value = ("/{id}/conhecimentos"), method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
-	public ResponseEntity<Iterable<Conhecimento>> buscarConhecimentosDoProfissional(@PathVariable("id") Long id){
+	public ResponseEntity<Iterable<Conhecimento>> buscarConhecimentosDaPessoa(@PathVariable("id") Long id){
 		
-		Iterable<Conhecimento> conhecimentos = profissionalService.buscarConhecimentosDoProfissiinal(id);
+		Iterable<Conhecimento> conhecimentos = pessoaService.buscarConhecimentosDoProfissiinal(id);
 		
 		return ResponseEntity.status(HttpStatus.OK).body(conhecimentos);
 		
 	}
 	
 	@RequestMapping(value = ("/conheceassunto/{id}"), method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
-	public ResponseEntity<Iterable<Conhecimento>> buscarProfissionaisQueConhecemUmAssunto(@PathVariable("id") Long id){
+	public ResponseEntity<Iterable<Conhecimento>> buscarPessoasQueConhecemUmAssunto(@PathVariable("id") Long id){
 		
-		Iterable<Conhecimento> conhecimentos = profissionalService.buscarProfissionaisQueConhecemAssunto(id);
+		Iterable<Conhecimento> conhecimentos = pessoaService.buscarPessoasQueConhecemUmAssunto(id);
 		
 		return ResponseEntity.status(HttpStatus.OK).body(conhecimentos);
 		

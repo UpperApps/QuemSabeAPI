@@ -7,11 +7,11 @@ import br.com.upperapps.domain.Conhecimento;
 
 public interface ConhecimentoRepository extends GraphRepository<Conhecimento>{
 
-	@Query("match m=(p:Profissional)-[r:CONHECE_UM]->(a:Assunto)-[r2:PERTENCE_A_CATEGORIA]->(c:Categoria)"
+	@Query("match m=(p:Pessoa)-[r:CONHECE_UM]->(a:Assunto)-[r2:PERTENCE_A_CATEGORIA]->(c:Categoria)"
 			+ " where id(p) = {0} return m")
-	Iterable<Conhecimento> getConhecimentosDoProfissional(Long id);
+	Iterable<Conhecimento> getConhecimentosDaPessoa(Long id);
 	
-	@Query("match m=(p:Profissional)-[r:CONHECE_UM]->(a:Assunto)-[r2:PERTENCE_A_CATEGORIA]->(c:Categoria)"
+	@Query("match m=(p:Pessoa)-[r:CONHECE_UM]->(a:Assunto)-[r2:PERTENCE_A_CATEGORIA]->(c:Categoria)"
 			+ " where id(a) = {0} return m")
-	Iterable<Conhecimento> getProfissionaisQueConhecemAssunto(Long id);
+	Iterable<Conhecimento> getPessoasQueConhecemUmAssunto(Long id);
 }

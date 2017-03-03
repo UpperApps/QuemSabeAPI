@@ -21,7 +21,7 @@ public class Conhecimento {
 	private Long id;
 	
 	@StartNode
-	private Profissional profissional;
+	private Pessoa pessoa;
 	
 	@EndNode
 	private Assunto assunto;
@@ -45,12 +45,12 @@ public class Conhecimento {
 		this.id = id;
 	}
 
-	public Profissional getProfissional() {
-		return profissional;
+	public Pessoa getPessoa() {
+		return pessoa;
 	}
 
-	public void setProfissional(Profissional profissional) {
-		this.profissional = profissional;
+	public void setPessoa(Pessoa pessoa) {
+		this.pessoa = pessoa;
 	}
 
 	public Assunto getAssunto() {

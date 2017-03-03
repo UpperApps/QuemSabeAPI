@@ -49,7 +49,7 @@ public class ConhecimentoService {
 		Conhecimento conhecimento = possuiConhecimentolRepository.findOne(id);
 
 		if (conhecimento == null) {
-			throw new ConhecimentoNaoEncontradoException("Conhecimento não encontrado para o profissional");
+			throw new ConhecimentoNaoEncontradoException("Conhecimento não encontrado.");
 		}
 		return conhecimento;
 	}

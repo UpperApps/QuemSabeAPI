@@ -1,5 +1,6 @@
 package br.com.upperapps.domain;
 
+import java.net.URI;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -11,13 +12,14 @@ import org.hibernate.validator.constraints.NotEmpty;
 import org.neo4j.ogm.annotation.GraphId;
 import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Relationship;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.voodoodyne.jackson.jsog.JSOGGenerator;
 
 @JsonIdentityInfo(generator = JSOGGenerator.class)
 @NodeEntity
-public class Profissional {
+public class Pessoa {
 
 	@GraphId
 	private Long id;
@@ -36,11 +38,11 @@ public class Profissional {
 	@Relationship(type = "CONHECE_UM", direction = Relationship.OUTGOING)
 	private Set<Conhecimento> conhecimento = new HashSet<>();
 
-	public Profissional() {
+	public Pessoa() {
 
 	}
 
-	public Profissional(String nome, String email) {
+	public Pessoa(String nome, String email) {
 		this.nome = nome;
 		this.email = email;
 	}
@@ -67,6 +69,16 @@ public class Profissional {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public URI getConhecimento() {
+		URI uri = ServletUriComponentsBuilder
+				.fromCurrentContextPath()
+				.path("pessoa/{id}/conhecimentos")
+				.buildAndExpand(this.id)
+				.toUri();
+
+		return uri;
 	}
 
 }

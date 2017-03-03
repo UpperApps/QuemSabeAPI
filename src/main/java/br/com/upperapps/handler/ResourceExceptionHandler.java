@@ -13,8 +13,8 @@ import br.com.upperapps.services.exceptions.CategoriaExistenteException;
 import br.com.upperapps.services.exceptions.CategoriaNaoEncontradaException;
 import br.com.upperapps.services.exceptions.AssuntoExistenteException;
 import br.com.upperapps.services.exceptions.AssuntoNaoEncontradoException;
-import br.com.upperapps.services.exceptions.ProfissionalExistenteException;
-import br.com.upperapps.services.exceptions.ProfissionalNaoEncontradoException;
+import br.com.upperapps.services.exceptions.PessoaExistenteException;
+import br.com.upperapps.services.exceptions.PessoalNaoEncontradoException;
 
 /**
  * @author Rodrigo Melo Esta classe implementa o padrão Handler. É um
@@ -24,8 +24,8 @@ import br.com.upperapps.services.exceptions.ProfissionalNaoEncontradoException;
 @ControllerAdvice
 public class ResourceExceptionHandler {
 	
-	@ExceptionHandler(ProfissionalExistenteException.class)
-	public ResponseEntity<DetalhesErro> handleProfissionalExistenteException(ProfissionalExistenteException e,
+	@ExceptionHandler(PessoaExistenteException.class)
+	public ResponseEntity<DetalhesErro> handlePessoaExistenteException(PessoaExistenteException e,
 			HttpServletRequest request) {
 		
 		// Carrega as informações que serão exibidas na mensagem de erro do console.
@@ -38,8 +38,8 @@ public class ResourceExceptionHandler {
 		return ResponseEntity.status(HttpStatus.CONFLICT).body(erro);
 	}
 	
-	@ExceptionHandler(ProfissionalNaoEncontradoException.class)
-	public ResponseEntity<DetalhesErro> handleProfissionalNaoEncontradoException(ProfissionalNaoEncontradoException e,
+	@ExceptionHandler(PessoalNaoEncontradoException.class)
+	public ResponseEntity<DetalhesErro> handlePessoaNaoEncontradoException(PessoalNaoEncontradoException e,
 			HttpServletRequest request) {
 		
 		// Carrega as informações que serão exibidas na mensagem de erro do console.

@@ -1,5 +1,9 @@
 package br.com.upperapps.domain;
 
+import java.net.URI;
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -7,6 +11,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 import org.neo4j.ogm.annotation.GraphId;
 import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Relationship;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 @NodeEntity
 public class Assunto {
@@ -25,6 +30,9 @@ public class Assunto {
 	@NotNull(message="A categoria não pode ser nula.")
 	@Relationship(type = "PERTENCE_A_CATEGORIA", direction = Relationship.OUTGOING)
 	private Categoria categoria;
+	
+	@Relationship(type = "CONHECE_UM", direction = Relationship.INCOMING)
+	private Set<Conhecimento> conhecimento = new HashSet<>();
 	
 	public Assunto(){
 		
@@ -61,13 +69,15 @@ public class Assunto {
 	public void setCategoria(Categoria categoria) {
 		this.categoria = categoria;
 	}
+	
+	public URI getConhecimento() {
+		URI uri = ServletUriComponentsBuilder
+				.fromCurrentContextPath()
+				.path("pessoa/conheceassunto/{id}")
+				.buildAndExpand(this.id)
+				.toUri();
 
-//	public Set<Conhecimento> getConhecimento() {
-//		return conhecimento;
-//	}
-//
-//	public void setConhecimento(Set<Conhecimento> conhecimento) {
-//		this.conhecimento = conhecimento;
-//	}
+		return uri;
+	}
 	
 }
