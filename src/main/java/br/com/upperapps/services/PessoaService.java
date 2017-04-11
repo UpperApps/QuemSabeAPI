@@ -33,9 +33,10 @@ public class PessoaService {
 		if (pessoa.getId() != null) {
 			pessoaRepository.findOne(pessoa.getId());
 
-			if (pessoa != null) {
-
-				throw new PessoaExistenteException("O pessoa já existe.");
+			if (pessoa != null && pessoa.getNome() != null) {
+				System.out.println(pessoa);
+				System.out.println(pessoa.getNome());
+				throw new PessoaExistenteException("A pessoa já existe.");
 			}
 		}
 
