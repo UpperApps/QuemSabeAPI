@@ -19,7 +19,7 @@ import br.com.upperapps.domain.Categoria;
 import br.com.upperapps.services.CategoriaService;
 
 @RestController
-@RequestMapping("categoria/")
+@RequestMapping("quemsabe/categoria/")
 public class CategoriaResource {
 
 	@Autowired

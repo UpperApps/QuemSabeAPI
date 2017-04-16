@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @ComponentScan("br.com.upperapps")
 @EnableNeo4jRepositories("br.com.upperapps.repository")
 @EnableTransactionManagement
-public class QuemSabeAPINeo4JConfiguration{
+public class Neo4JConfiguration{
 
 	public static final String URL = System.getenv("NEO4J_URL") != null ? System.getenv("NEO4J_URL") : "http://neo4j:graph@localhost:7474";
 

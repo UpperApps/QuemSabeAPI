@@ -19,7 +19,7 @@ import br.com.upperapps.domain.Conhecimento;
 import br.com.upperapps.services.ConhecimentoService;
 
 @RestController
-@RequestMapping("conhece/")
+@RequestMapping("quemsabe/conhece/")
 public class ConhecimentoResource {
 
 	@Autowired

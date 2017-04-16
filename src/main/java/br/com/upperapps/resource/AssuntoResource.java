@@ -20,7 +20,7 @@ import br.com.upperapps.services.AssuntoService;
 
 
 @RestController
-@RequestMapping("assunto/")
+@RequestMapping("quemsabe/assunto/")
 public class AssuntoResource {
 	
 	@Autowired
