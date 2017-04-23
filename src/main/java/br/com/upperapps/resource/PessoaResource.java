@@ -21,7 +21,7 @@ import br.com.upperapps.domain.Pessoa;
 import br.com.upperapps.services.PessoaService;
 
 @RestController
-@RequestMapping("pessoa/")
+@RequestMapping("quemsabe/pessoa/")
 public class PessoaResource {
 
 	@Autowired
