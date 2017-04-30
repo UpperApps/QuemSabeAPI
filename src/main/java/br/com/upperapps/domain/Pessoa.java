@@ -72,11 +72,8 @@ public class Pessoa {
 	}
 
 	public URI getConhecimento() {
-		URI uri = ServletUriComponentsBuilder
-				.fromCurrentContextPath()
-				.path("pessoa/{id}/conhecimentos")
-				.buildAndExpand(this.id)
-				.toUri();
+		URI uri = ServletUriComponentsBuilder.fromCurrentContextPath().path("quemsabe/pessoa/{id}/conhecimentos")
+				.buildAndExpand(this.id).toUri();
 
 		return uri;
 	}

@@ -15,7 +15,7 @@ public class CORSConfiguration {
 			@Override
 			public void addCorsMappings(CorsRegistry registry){
 				registry.addMapping("/quemsabe/**")
-				.allowedOrigins("http://localhost:4200")
+				.allowedOrigins("*")
 				.allowedHeaders("*")
 				.allowedMethods("*")
 				.allowCredentials(false)
