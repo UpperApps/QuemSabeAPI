@@ -42,15 +42,12 @@ public class PessoaResource {
 		return ResponseEntity.status(HttpStatus.OK).body(pessoa);
 	}
 	
-	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<Void> salvar(@Valid @RequestBody Pessoa pessoa){
+	@RequestMapping(method = RequestMethod.POST, produces = {MediaType.APPLICATION_JSON_VALUE})
+	public ResponseEntity<Pessoa> salvar(@Valid @RequestBody Pessoa pessoa){
 		
-		pessoa = pessoaService.salvar(pessoa);
+		Pessoa novaPessoa = pessoaService.salvar(pessoa);
+		return ResponseEntity.status(HttpStatus.OK).body(novaPessoa);
 		
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
-				.path("/{id}").buildAndExpand(pessoa.getId()).toUri();
-		
-		return ResponseEntity.created(uri).build();
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)

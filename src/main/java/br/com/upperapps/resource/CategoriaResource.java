@@ -39,15 +39,11 @@ public class CategoriaResource {
 		return ResponseEntity.status(HttpStatus.OK).body(categoria);
 	}
 	
-	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<Void> salvar(@Valid @RequestBody Categoria categoria){
+	@RequestMapping(method = RequestMethod.POST, produces = {MediaType.APPLICATION_JSON_VALUE})
+	public ResponseEntity<Categoria> salvar(@Valid @RequestBody Categoria categoria){
 		
-		categoria = categoriaService.salvar(categoria);
-		
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
-				.path("/{id}").buildAndExpand(categoria.getId()).toUri();
-		
-		return ResponseEntity.created(uri).build();
+		Categoria novaCategoria = categoriaService.salvar(categoria);		
+		return ResponseEntity.status(HttpStatus.OK).body(novaCategoria);
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)

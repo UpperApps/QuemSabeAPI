@@ -40,15 +40,11 @@ public class AssuntoResource {
 		return ResponseEntity.status(HttpStatus.OK).body(assunto);
 	}
 	
-	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<Void> salvar(@Valid @RequestBody Assunto assunto){
+	@RequestMapping(method = RequestMethod.POST, produces = {MediaType.APPLICATION_JSON_VALUE})
+	public ResponseEntity<Assunto> salvar(@Valid @RequestBody Assunto assunto){
 		
-		assunto = assuntoService.salvar(assunto);
-		
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
-				.path("/{id}").buildAndExpand(assunto.getId()).toUri();
-		
-		return ResponseEntity.created(uri).build();
+		Assunto novoAssunto = assuntoService.salvar(assunto);		
+		return ResponseEntity.status(HttpStatus.OK).body(novoAssunto);
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)

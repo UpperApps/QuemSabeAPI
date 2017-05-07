@@ -39,15 +39,11 @@ public class ConhecimentoResource {
 		return ResponseEntity.status(HttpStatus.OK).body(conhecimento);
 	}
 
-	@RequestMapping(method = RequestMethod.POST, consumes = { MediaType.APPLICATION_JSON_VALUE })
-	public ResponseEntity<Void> salvar(@Valid @RequestBody Conhecimento conhecimento) {
+	@RequestMapping(method = RequestMethod.POST, consumes = { MediaType.APPLICATION_JSON_VALUE }, produces = { MediaType.APPLICATION_JSON_VALUE })
+	public ResponseEntity<Conhecimento> salvar(@Valid @RequestBody Conhecimento conhecimento) {
 
-		conhecimento = conhecimentoService.salvar(conhecimento);
-
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(conhecimento.getId())
-				.toUri();
-
-		return ResponseEntity.created(uri).build();
+		Conhecimento novoConhecimento = conhecimentoService.salvar(conhecimento);
+		return ResponseEntity.status(HttpStatus.OK).body(novoConhecimento);
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)

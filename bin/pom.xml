@@ -14,7 +14,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>1.4.3.RELEASE</version>
+		<version>1.5.1.RELEASE</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 
@@ -23,6 +23,8 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
 		<neo4j-ogm-test.version>2.1.1</neo4j-ogm-test.version>
+		<spring-data-neo4j.version>4.2.0.RELEASE</spring-data-neo4j.version>
+		<jackson-jsog.version>1.1</jackson-jsog.version>
 	</properties>
 
 	<dependencies>
@@ -47,8 +49,9 @@
 		</dependency>
 
 		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-neo4j</artifactId>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-neo4j</artifactId>
+			<version>${spring-data-neo4j.version}</version>
 		</dependency>
 
 		<dependency>
@@ -56,6 +59,12 @@
 			<artifactId>neo4j-ogm-test</artifactId>
 			<version>${neo4j-ogm-test.version}</version>
 			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.voodoodyne.jackson.jsog</groupId>
+			<artifactId>jackson-jsog</artifactId>
+			<version>${jackson-jsog.version}</version>
 		</dependency>
 	</dependencies>
 
