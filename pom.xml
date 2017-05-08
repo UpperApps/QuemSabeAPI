@@ -35,7 +35,7 @@
             <id>quemsabe</id>
             <name>brittus</name>
             <uniqueVersion>false</uniqueVersion>
-            <url>https://hub.docker.com/</url>
+            <url>https://index.docker.io/v1/</url>
         </repository>
     </distributionManagement>
 	
