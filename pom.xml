@@ -26,10 +26,19 @@
 		<spring-data-neo4j.version>4.2.0.RELEASE</spring-data-neo4j.version>
 		<jackson-jsog.version>1.1</jackson-jsog.version>
 		<docker.registry.name></docker.registry.name><!-- leave empty for docker hub -->
-		<docker.repository.name>${docker.registry.name}${project.artifactId}</docker.repository.name>
+		<docker.repository.name>brittus/${project.artifactId}</docker.repository.name>
 		<neo4j.url>http://192.168.25.101:7474/</neo4j.url>
 	</properties>
-
+	
+	<distributionManagement>
+        <repository>
+            <id>quemsabe</id>
+            <name>brittus</name>
+            <uniqueVersion>false</uniqueVersion>
+            <url>https://hub.docker.com/</url>
+        </repository>
+    </distributionManagement>
+	
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
