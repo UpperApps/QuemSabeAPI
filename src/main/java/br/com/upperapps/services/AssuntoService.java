@@ -7,7 +7,6 @@ import br.com.upperapps.domain.Assunto;
 import br.com.upperapps.domain.Categoria;
 import br.com.upperapps.repository.AssuntoRepository;
 import br.com.upperapps.repository.CategoriaRepository;
-import br.com.upperapps.repository.ConhecimentoRepository;
 import br.com.upperapps.services.exceptions.AssuntoExistenteException;
 import br.com.upperapps.services.exceptions.AssuntoNaoEncontradoException;
 import br.com.upperapps.services.exceptions.CategoriaNaoEncontradaException;
@@ -40,7 +39,7 @@ public class AssuntoService {
 
 			if (assunto != null) {
 
-				throw new AssuntoExistenteException("O conhecimento já existe.");
+				throw new AssuntoExistenteException("O assunto já existe.");
 			}
 		}
 
@@ -57,9 +56,15 @@ public class AssuntoService {
 		Assunto assunto = assuntoRepository.findOne(id);
 
 		if (assunto == null) {
-			throw new AssuntoNaoEncontradoException("Conhecimento não encontrado.");
+			throw new AssuntoNaoEncontradoException("Assunto não encontrado.");
 		}
 		return assunto;
+	}
+	
+	public Iterable<Assunto> listarNovosAssuntosParaPessoa(Long id) {
+		Iterable<Assunto> assuntos = assuntoRepository.getNovosAssuntosParaPessoa(id);
+
+		return assuntos;
 	}
 
 	public void deletar(Long id) {
@@ -67,7 +72,7 @@ public class AssuntoService {
 		try {
 			assuntoRepository.delete(id);
 		} catch (Exception e) {
-			throw new AssuntoNaoEncontradoException("O conhecimento não pôde ser encontrado." + e);
+			throw new AssuntoNaoEncontradoException("O assunto não pôde ser encontrado." + e);
 		}
 
 	}

@@ -1,7 +1,5 @@
 package br.com.upperapps.resource;
 
-import java.net.URI;
-
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.com.upperapps.domain.Assunto;
 import br.com.upperapps.services.AssuntoService;
@@ -29,15 +26,23 @@ public class AssuntoResource {
 	@RequestMapping(method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
 	public ResponseEntity<Iterable<Assunto>> listar(){
 		
-		Iterable<Assunto> assunto = assuntoService.listar();
+		Iterable<Assunto> assuntos = assuntoService.listar();
 		
-		return ResponseEntity.status(HttpStatus.OK).body(assunto);
+		return ResponseEntity.status(HttpStatus.OK).body(assuntos);
 	}
 	
 	@RequestMapping(value = ("/{id}"), method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
 	public ResponseEntity<Assunto> buscar(@PathVariable("id") Long id){
 		Assunto assunto = assuntoService.buscar(id);
 		return ResponseEntity.status(HttpStatus.OK).body(assunto);
+	}
+	
+	@RequestMapping(value = ("/novos/pessoa/{id}"), method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
+	public ResponseEntity<Iterable<Assunto>> listarNovosAssuntosParaPessoa(@PathVariable("id") Long id){
+		
+		Iterable<Assunto> assuntos = assuntoService.listarNovosAssuntosParaPessoa(id);
+		
+		return ResponseEntity.status(HttpStatus.OK).body(assuntos);
 	}
 	
 	@RequestMapping(method = RequestMethod.POST, produces = {MediaType.APPLICATION_JSON_VALUE})

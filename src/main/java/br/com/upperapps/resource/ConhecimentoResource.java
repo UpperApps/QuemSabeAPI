@@ -1,7 +1,5 @@
 package br.com.upperapps.resource;
 
-import java.net.URI;
-
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,13 +11,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.com.upperapps.domain.Conhecimento;
 import br.com.upperapps.services.ConhecimentoService;
 
 @RestController
-@RequestMapping("quemsabe/conhece/")
+@RequestMapping("quemsabe/conhecimento/")
 public class ConhecimentoResource {
 
 	@Autowired
@@ -29,6 +26,14 @@ public class ConhecimentoResource {
 	public ResponseEntity<Iterable<Conhecimento>> listar() {
 
 		Iterable<Conhecimento> conhecimento = conhecimentoService.listar();
+
+		return ResponseEntity.status(HttpStatus.OK).body(conhecimento);
+	}
+	
+	@RequestMapping(value = ("/pessoa/{id}"), method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE })
+	public ResponseEntity<Iterable<Conhecimento>> listarPorPessoa(@PathVariable("id") Long id) {
+
+		Iterable<Conhecimento> conhecimento = conhecimentoService.listarPorPessoa(id);
 
 		return ResponseEntity.status(HttpStatus.OK).body(conhecimento);
 	}
@@ -46,7 +51,7 @@ public class ConhecimentoResource {
 		return ResponseEntity.status(HttpStatus.OK).body(novoConhecimento);
 	}
 
-	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+	@RequestMapping(value = "/{id}", method = RequestMethod.PUT, consumes = { MediaType.APPLICATION_JSON_VALUE }, produces = { MediaType.APPLICATION_JSON_VALUE })
 	public ResponseEntity<Void> atualizar(@RequestBody Conhecimento conhecimento, @PathVariable("id") Long id) {
 		conhecimento.setId(id);
 		conhecimentoService.atualizar(conhecimento);

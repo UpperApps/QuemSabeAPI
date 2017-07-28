@@ -24,6 +24,12 @@ public class ConhecimentoService {
 		return possuiConhecimentolRepository.findAll();
 		
 	}
+	
+	public Iterable<Conhecimento> listarPorPessoa(Long id) {
+
+		return possuiConhecimentolRepository.getConhecimentosDaPessoa(id);
+		
+	}
 
 	public Conhecimento salvar(Conhecimento conhecimento) {
 
