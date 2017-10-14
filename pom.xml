@@ -24,8 +24,20 @@
 		<java.version>1.8</java.version>
 		<neo4j-ogm-test.version>2.1.1</neo4j-ogm-test.version>
 		<jackson-jsog.version>1.1</jackson-jsog.version>
+		<docker.registry.name></docker.registry.name><!-- leave empty for docker hub -->
+		<docker.repository.name>brittus/${project.artifactId}</docker.repository.name>
+		<neo4j.url>http://192.168.25.101:7474/</neo4j.url>
 	</properties>
-
+	
+	<distributionManagement>
+        <repository>
+            <id>quemsabe</id>
+            <name>brittus</name>
+            <uniqueVersion>false</uniqueVersion>
+            <url>https://index.docker.io/v1/</url>
+        </repository>
+    </distributionManagement>
+	
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -73,6 +85,77 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>io.fabric8</groupId>
+				<artifactId>docker-maven-plugin</artifactId>
+				<extensions>true</extensions>
+				<version>0.20.1</version>
+				<configuration>
+					<images>
+						<image>
+							<alias>${project.artifactId}</alias>
+							<name>${docker.repository.name}:${project.version}</name>
+							<build>
+								<from>java:8-jre</from>
+								<maintainer>brittus</maintainer>
+								<assembly>
+									<descriptor>docker-assembly.xml</descriptor>
+								</assembly>
+								<ports>
+									<port>9090</port>
+									<port>9091</port>
+								</ports>
+								<env>
+									<NEO4J_URL>${neo4j.url}</NEO4J_URL>
+								</env>
+								<cmd>
+									<shell>java $JAVA_OPTS -Djava.security.egd=file:/dev/./urandom -jar /maven/${project.build.finalName}.jar</shell>
+								</cmd>
+							</build>
+							<run>
+								<namingStrategy>alias</namingStrategy>
+								<ports>
+									<port>9090:8080</port>
+									<port>9081:8081</port>
+								</ports>
+								<volumes>
+									<bind>
+										<volume>${user.home}/logs:/logs</volume>
+									</bind>
+								</volumes>
+								<log>
+									<prefix>${project.artifactId}</prefix>
+									<color>cyan</color>
+								</log>
+							</run>
+						</image>
+					</images>
+				</configuration>
+				<executions>
+					<execution>
+						<id>start</id>
+						<phase>pre-integration-test</phase>
+						<goals>
+							<goal>build</goal>
+							<goal>start</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>stop</id>
+						<phase>post-integration-test</phase>
+						<goals>
+							<goal>stop</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>push-to-docker-registry</id>
+						<phase>install</phase>
+						<goals>
+							<goal>push</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>
