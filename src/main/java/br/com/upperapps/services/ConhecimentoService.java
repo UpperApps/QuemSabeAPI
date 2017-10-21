@@ -5,6 +5,7 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import br.com.upperapps.domain.Conhecimento;
+import br.com.upperapps.DTO.ConhecimentoPessoaDTO;
 import br.com.upperapps.repository.ConhecimentoRepository;
 import br.com.upperapps.services.exceptions.ConhecimentoExistenteException;
 import br.com.upperapps.services.exceptions.ConhecimentoNaoEncontradoException;
@@ -28,6 +29,12 @@ public class ConhecimentoService {
 	public Iterable<Conhecimento> listarPorPessoa(Long id) {
 
 		return possuiConhecimentolRepository.getConhecimentosDaPessoa(id);
+		
+	}
+	
+	public Iterable<ConhecimentoPessoaDTO> buscarArvoreDeConhecimento(Long id) {
+
+		return possuiConhecimentolRepository.getArvoreConhecimento(id);
 		
 	}
 
@@ -74,4 +81,5 @@ public class ConhecimentoService {
 	private void verificarExistencia(Conhecimento conhecimento) {
 		buscar(conhecimento.getId());
 	}
+	
 }

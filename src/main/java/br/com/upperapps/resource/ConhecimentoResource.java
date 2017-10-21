@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.upperapps.DTO.ConhecimentoPessoaDTO;
 import br.com.upperapps.domain.Conhecimento;
 import br.com.upperapps.services.ConhecimentoService;
 
@@ -36,6 +37,14 @@ public class ConhecimentoResource {
 		Iterable<Conhecimento> conhecimento = conhecimentoService.listarPorPessoa(id);
 
 		return ResponseEntity.status(HttpStatus.OK).body(conhecimento);
+	}
+	
+	@RequestMapping(value = ("/conhecimentopessoa/{id}"), method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE })
+	public ResponseEntity<Iterable<ConhecimentoPessoaDTO>> listarConhecimentosDaPessoa(@PathVariable("id") Long id) {
+
+		Iterable<ConhecimentoPessoaDTO> conhecimentoPessoa = conhecimentoService.buscarArvoreDeConhecimento(id);
+
+		return ResponseEntity.status(HttpStatus.OK).body(conhecimentoPessoa);
 	}
 
 	@RequestMapping(value = ("/{id}"), method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE })

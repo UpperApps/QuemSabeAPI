@@ -34,7 +34,7 @@ public class Neo4JConfiguration{
 	
 	@Bean
 	public SessionFactory sessionFactory() {
-		return new SessionFactory(getConfiguration(), "br.com.upperapps.domain");
+		return new SessionFactory(getConfiguration(), "br.com.upperapps.domain", "br.com.upperapps.DTO");
 	}
 	
 	@Bean
